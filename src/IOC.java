@@ -31,12 +31,10 @@ public class IOC {
     }
 
     int countPlayersInISFNSFs() {
-        LinkedHashSet<Player> totalPlayers = new LinkedHashSet<Player>();
+        int count = 0;
         for (ISF isf : ISFs){
-            for (NSF nsf: isf.getNSFs()){
-                totalPlayers.addAll(nsf.getPlayers());
-            }
+            count+=isf.countPlayersInNSFs();
         }
-        return totalPlayers.size();
+        return count;
     }
 }

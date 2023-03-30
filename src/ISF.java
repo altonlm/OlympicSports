@@ -30,10 +30,10 @@ public class ISF {
     }
 
     int countPlayersInNSFs(){
-        LinkedHashSet<Player> totalPlayers = new LinkedHashSet<Player>();
+        int count = 0;
         for (NSF nsf : NSFs){
-            totalPlayers.addAll(nsf.getPlayers());
+            count += nsf.getPlayers().size();
         }
-        return totalPlayers.size();
+        return count;
     }
 }
