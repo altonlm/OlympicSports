@@ -30,7 +30,13 @@ public class Player {
     }
 
     public void setNSFs(ArrayList<NSF> NSFs) {
+        for (int i = 0; i < this.NSFs.size(); i++){
+            this.NSFs.get(i).getPlayers().remove(this);
+        }
         this.NSFs = NSFs;
+        for (int i = 0; i < NSFs.size(); i++) {
+            this.addNSF(NSFs.get(i));
+        }
     }
 
     public String toString(){
@@ -39,7 +45,7 @@ public class Player {
 
     public void listPlayerNSFs(){
         String returnString = this.toString() + ": ";
-        for (int i = 0; i < NSFs.size()-2; i++) {
+        for (int i = 0; i < NSFs.size()-1; i++) {
             returnString += NSFs.get(i).toString() + ", ";
         }
         returnString += NSFs.get(NSFs.size()-1);
@@ -47,6 +53,11 @@ public class Player {
     }
 
     public void addNSF(NSF nsf){
-        NSFs.add(nsf);
+        if (!NSFs.contains(nsf)){
+            NSFs.add(nsf);
+        }
+        if (!nsf.getPlayers().contains(this)){
+            nsf.addPlayer(this);
+        }
     }
 }

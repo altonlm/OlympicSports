@@ -1,26 +1,25 @@
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.ArrayList;
 public class IOC {
     private String name;
-    private ArrayList<ISF> ISFs;
+    private List<ISF> ISFs;
 
     IOC(String name){
         this.name = name;
         this.ISFs = new ArrayList<ISF>();
     }
 
-    public String getName() {
+    String getName() {
         return name;
     }
-
-    public void setName(String name) {
+    void setName(String name) {
         this.name = name;
     }
-
-    public ArrayList<ISF> getISFs() {
+    List<ISF> getISFs() {
         return ISFs;
     }
-
-    public void setISFs(ArrayList<ISF> ISFs) {
+    void setISFs(List<ISF> ISFs) {
         this.ISFs = ISFs;
     }
     int countNSFs() {
@@ -32,10 +31,12 @@ public class IOC {
     }
 
     int countPlayersInISFNSFs() {
-        int count = 0;
+        LinkedHashSet<Player> totalPlayers = new LinkedHashSet<Player>();
         for (ISF isf : ISFs){
-            count += isf.countPlayersInNSFs();
+            for (NSF nsf: isf.getNSFs()){
+                totalPlayers.addAll(nsf.getPlayers());
+            }
         }
-        return count;
+        return totalPlayers.size();
     }
 }

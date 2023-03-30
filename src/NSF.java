@@ -1,7 +1,7 @@
 
 import java.util.ArrayList;
 public class NSF {
-    private ArrayList<Player> players;
+    protected ArrayList<Player> players;
     protected String sport, country;
 
     public NSF(String sport, String country){
@@ -31,7 +31,13 @@ public class NSF {
     }
 
     public void setPlayers(ArrayList<Player> players) {
+        for (int i = 0; i < this.players.size(); i++){
+            this.players.get(i).getNSFs().remove(this);
+        }
         this.players = players;
+        for (int i = 0; i < players.size(); i++) {
+            this.addPlayer(players.get(i));
+        }
     }
 
     public String toString(){
@@ -40,7 +46,7 @@ public class NSF {
 
     public void listNSFPlayers(){
         String returnString = this.toString() + ": ";
-        for (int i = 0; i < players.size()-2; i++) {
+        for (int i = 0; i < players.size()-1; i++) {
             returnString += players.get(i).toString() + ", ";
         }
         returnString += players.get(players.size()-1);
@@ -48,6 +54,11 @@ public class NSF {
     }
 
     public void addPlayer(Player player){
-        players.add(player);
+        if (!players.contains(player)){
+            players.add(player);
+        }
+        if (!player.getNSFs().contains(this)){
+            player.addNSF(this);
+        }
     }
 }

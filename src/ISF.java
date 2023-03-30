@@ -1,9 +1,12 @@
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.ArrayList;
 public class ISF {
     private String name;
-    private ArrayList<NSF> NSFs;
+    private List<NSF> NSFs;
     ISF(String name) {
         this.name = name;
+        this.NSFs = new ArrayList<NSF>();
     }
 
     String getName() {
@@ -14,13 +17,12 @@ public class ISF {
         this.name = name;
     }
 
-    ArrayList<NSF> getNSFs() {
+    List<NSF> getNSFs() {
         return NSFs;
     }
 
-    //TODO: Complete addNSF
     boolean addNSF(NSF nsf) {
-        return false;
+        return NSFs.add(nsf);
     }
 
     int countNSFs(){
@@ -28,10 +30,10 @@ public class ISF {
     }
 
     int countPlayersInNSFs(){
-        int count = 0;
+        LinkedHashSet<Player> totalPlayers = new LinkedHashSet<Player>();
         for (NSF nsf : NSFs){
-            count += nsf.getPlayers().size();
+            totalPlayers.addAll(nsf.getPlayers());
         }
-        return count;
+        return totalPlayers.size();
     }
 }
